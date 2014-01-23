@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5448AFF3-EE81-4237-8872-58AB7CB06B38}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StrangeAttractor.Util.Functional</RootNamespace>
+    <AssemblyName>StrangeAttractor.Util.Functional</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Implementation\Eithers\Either.cs" />
+    <Compile Include="Interfaces\IEither.cs" />
+    <Compile Include="Interfaces\IFailProjection.cs" />
+    <Compile Include="Interfaces\ILeftProjection.cs" />
+    <Compile Include="Interfaces\IMaybe.cs" />
+    <Compile Include="Interfaces\IRightProjection.cs" />
+    <Compile Include="Interfaces\ITry.cs" />
+    <Compile Include="Interfaces\IValidation.cs" />
+    <Compile Include="Interfaces\IValue.cs" />
+    <Compile Include="Extensions\EitherExtensions.cs" />
+    <Compile Include="Extensions\EnumerableMaybeExtensions.cs" />
+    <Compile Include="Extensions\MaybeExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\TryExtensions.cs" />
+    <Compile Include="Extensions\ValidationExtensions.cs" />
+    <Compile Include="Singletons\Either.cs" />
+    <Compile Include="Implementation\Tries\Failure.cs" />
+    <Compile Include="Implementation\Eithers\Left.cs" />
+    <Compile Include="Implementation\Eithers\LeftProjection.cs" />
+    <Compile Include="Singletons\Maybe.cs" />
+    <Compile Include="Implementation\Maybies\None.cs" />
+    <Compile Include="Implementation\Eithers\Right.cs" />
+    <Compile Include="Implementation\Eithers\RightProjection.cs" />
+    <Compile Include="Implementation\Maybies\Some.cs" />
+    <Compile Include="Implementation\Tries\Success.cs" />
+    <Compile Include="Singletons\Try.cs" />
+    <Compile Include="Singletons\Validation.cs" />
+    <Compile Include="Implementation\Validations\FailProjection.cs" />
+    <Compile Include="Implementation\Validations\Failure.cs" />
+    <Compile Include="Implementation\Validations\Success.cs" />
+    <Compile Include="Interfaces\IOptionalValue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
