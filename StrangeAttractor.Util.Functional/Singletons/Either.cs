@@ -1,6 +1,6 @@
 ﻿using System;
 using StrangeAttractor.Util.Functional.Interfaces;
-using StrangeAttractor.Util.Functional.Implementation.Eithers;
+using StrangeAttractor.Util.Functional.Implementation.DiscriminatedUnion;
 
 namespace StrangeAttractor.Util.Functional.Singletons
 {

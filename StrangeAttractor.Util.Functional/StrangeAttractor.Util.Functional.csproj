@@ -39,11 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\Eithers\Either.cs" />
+    <Compile Include="Implementation\DiscriminatedUnion\Either.cs" />
     <Compile Include="Interfaces\IEither.cs" />
     <Compile Include="Interfaces\IFailProjection.cs" />
     <Compile Include="Interfaces\ILeftProjection.cs" />
-    <Compile Include="Interfaces\IMaybe.cs" />
+    <Compile Include="Interfaces\IOption.cs" />
     <Compile Include="Interfaces\IRightProjection.cs" />
     <Compile Include="Interfaces\ITry.cs" />
     <Compile Include="Interfaces\IValidation.cs" />
@@ -55,20 +55,20 @@
     <Compile Include="Extensions\TryExtensions.cs" />
     <Compile Include="Extensions\ValidationExtensions.cs" />
     <Compile Include="Singletons\Either.cs" />
-    <Compile Include="Implementation\Tries\Failure.cs" />
-    <Compile Include="Implementation\Eithers\Left.cs" />
-    <Compile Include="Implementation\Eithers\LeftProjection.cs" />
-    <Compile Include="Singletons\Maybe.cs" />
-    <Compile Include="Implementation\Maybies\None.cs" />
-    <Compile Include="Implementation\Eithers\Right.cs" />
-    <Compile Include="Implementation\Eithers\RightProjection.cs" />
-    <Compile Include="Implementation\Maybies\Some.cs" />
-    <Compile Include="Implementation\Tries\Success.cs" />
+    <Compile Include="Implementation\Error\Failure.cs" />
+    <Compile Include="Implementation\DiscriminatedUnion\Left.cs" />
+    <Compile Include="Implementation\DiscriminatedUnion\LeftProjection.cs" />
+    <Compile Include="Singletons\Option.cs" />
+    <Compile Include="Implementation\Maybe\None.cs" />
+    <Compile Include="Implementation\DiscriminatedUnion\Right.cs" />
+    <Compile Include="Implementation\DiscriminatedUnion\RightProjection.cs" />
+    <Compile Include="Implementation\Maybe\Some.cs" />
+    <Compile Include="Implementation\Error\Success.cs" />
     <Compile Include="Singletons\Try.cs" />
     <Compile Include="Singletons\Validation.cs" />
-    <Compile Include="Implementation\Validations\FailProjection.cs" />
-    <Compile Include="Implementation\Validations\Failure.cs" />
-    <Compile Include="Implementation\Validations\Success.cs" />
+    <Compile Include="Implementation\BiasedDiscriminatedUnion\FailProjection.cs" />
+    <Compile Include="Implementation\BiasedDiscriminatedUnion\Failure.cs" />
+    <Compile Include="Implementation\BiasedDiscriminatedUnion\Success.cs" />
     <Compile Include="Interfaces\IOptionalValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

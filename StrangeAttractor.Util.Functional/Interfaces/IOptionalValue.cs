@@ -4,6 +4,6 @@ namespace StrangeAttractor.Util.Functional
 {
 	public interface IOptionalValue<out T>
 	{
-		IMaybe<T> ToMaybe();
+		IOption<T> ToOption();
 	}
 }

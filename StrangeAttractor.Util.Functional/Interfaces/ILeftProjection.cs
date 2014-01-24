@@ -9,6 +9,7 @@ namespace StrangeAttractor.Util.Functional.Interfaces
 	{
 		IEither<TResultLeft, TRight> Select<TResultLeft>(Func<TLeft, TResultLeft> selector);
 		IEither<TResultLeft, TResultRight> SelectMany<TResultLeft, TResultRight>(Func<TLeft, IEither<TResultLeft, TResultRight>> selector);
-		//IEither<TResultLeft, TResultRight> SelectMany<TResultLeft, TIntermediate, TResultRight>(Func<TLeft, IEither<TIntermediate, TResultRight>> intermediate, Func<TLeft, TIntermediate, TResultLeft> selector);
+
+		IEither<TResultLeft, TResultRight> SelectMany<TResultLeft, TIntermediate, TResultRight>(Func<TLeft, ILeftProjection<TIntermediate, TResultRight>> intermediate, Func<TLeft, TIntermediate, TResultLeft> selector);
 	}
 }

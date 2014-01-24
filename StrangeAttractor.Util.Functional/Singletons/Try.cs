@@ -1,6 +1,6 @@
 ﻿using System;
 using StrangeAttractor.Util.Functional.Interfaces;
-using StrangeAttractor.Util.Functional.Implementation.Tries;
+using StrangeAttractor.Util.Functional.Implementation.Error;
 
 namespace StrangeAttractor.Util.Functional.Singletons
 {

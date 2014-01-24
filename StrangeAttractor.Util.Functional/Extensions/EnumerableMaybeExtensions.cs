@@ -8,47 +8,47 @@ using StrangeAttractor.Util.Functional.Singletons;
 
 namespace StrangeAttractor.Util.Functional.Extensions
 {
-	public static class EnumerableMaybeExtensions
+	public static class EnumerableOptionExtensions
 	{
-		public static IEnumerable<T> SelectValid<T>(this IEnumerable<IMaybe<T>> self)
+		public static IEnumerable<T> SelectValid<T>(this IEnumerable<IOption<T>> self)
 		{
 			return SelectValid(self, m => m);
 		}
 
-		public static IEnumerable<TResult> SelectValid<T, TResult>(this IEnumerable<IMaybe<T>> self, Func<T, TResult> selector)
+		public static IEnumerable<TResult> SelectValid<T, TResult>(this IEnumerable<IOption<T>> self, Func<T, TResult> selector)
 		{
-			return from maybe in self where maybe.HasValue select selector(maybe.Value);
+			return from Option in self where Option.HasValue select selector(Option.Value);
 		}
 
 		/// <summary>
-		/// Determines if any Maybe in the collection does not encapsulate a value.
+		/// Determines if any Option in the collection does not encapsulate a value.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static bool AnyNothing<T>(this IEnumerable<IMaybe<T>> self)
+		public static bool AnyNothing<T>(this IEnumerable<IOption<T>> self)
 		{
 			return self.Any(m => !m.HasValue);
 		}
 
 		/// <summary>
-		/// Determines if all Maybe in the collection encapsulate a value.
+		/// Determines if all Option in the collection encapsulate a value.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static bool All<T>(this IEnumerable<IMaybe<T>> self)
+		public static bool All<T>(this IEnumerable<IOption<T>> self)
 		{
 			return self.All(m => m.HasValue);
 		}
 
 		/// <summary>
-		/// Determines if any Maybe in the collection encapsulates a value.
+		/// Determines if any Option in the collection encapsulates a value.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static bool Any<T>(this IEnumerable<IMaybe<T>> self)
+		public static bool Any<T>(this IEnumerable<IOption<T>> self)
 		{
 			return self.Any(m => m.HasValue);
 		}
@@ -59,10 +59,10 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<IEnumerable<T>> Sequence<T>(this IEnumerable<IMaybe<T>> self)
+		public static IOption<IEnumerable<T>> Sequence<T>(this IEnumerable<IOption<T>> self)
 		{
 			var result = self.ToLookup(x => x.HasValue, x => x.GetOrDefault());
-			return result[false].Any() ? Maybe.Nothing<IEnumerable<T>>() : result[true].ToMaybe();
+			return result[false].Any() ? Option.Nothing<IEnumerable<T>>() : result[true].ToOption();
 		}
 
 		/// <summary>
@@ -73,10 +73,10 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <param name="self"></param>
 		/// <param name="key"></param>
 		/// <returns></returns>
-		public static IMaybe<TValue> GetMaybe<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key)
+		public static IOption<TValue> GetOption<TKey, TValue>(this IDictionary<TKey, TValue> self, TKey key)
 		{
 			TValue value;
-			return self.TryGetValue(key, out value) ? value.ToMaybe() : Maybe.Nothing<TValue>();
+			return self.TryGetValue(key, out value) ? value.ToOption() : Option.Nothing<TValue>();
 		}
 
 		/// <summary>
@@ -85,9 +85,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> FirstMaybe<T>(this IEnumerable<T> self)
+		public static IOption<T> FirstOption<T>(this IEnumerable<T> self)
 		{
-			return self.FirstOrDefault().ToMaybe();
+			return self.FirstOrDefault().ToOption();
 		}
 
 		/// <summary>
@@ -96,9 +96,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> FirstMaybe<T>(this IEnumerable<T> self, Func<T, bool> predicate)
+		public static IOption<T> FirstOption<T>(this IEnumerable<T> self, Func<T, bool> predicate)
 		{
-			return self.FirstOrDefault(predicate).ToMaybe();
+			return self.FirstOrDefault(predicate).ToOption();
 		}
 
 		/// <summary>
@@ -107,9 +107,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> SingleMaybe<T>(this IEnumerable<T> self)
+		public static IOption<T> SingleOption<T>(this IEnumerable<T> self)
 		{
-			return self.SingleOrDefault().ToMaybe();
+			return self.SingleOrDefault().ToOption();
 		}
 
 		/// <summary>
@@ -118,9 +118,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> SingleMaybe<T>(this IEnumerable<T> self, Func<T, bool> predicate)
+		public static IOption<T> SingleOption<T>(this IEnumerable<T> self, Func<T, bool> predicate)
 		{
-			return self.SingleOrDefault(predicate).ToMaybe();
+			return self.SingleOrDefault(predicate).ToOption();
 		}
 
 		/// <summary>
@@ -129,9 +129,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> SingleMaybe<T>(this IQueryable<T> self, Expression<Func<T, bool>> predicate)
+		public static IOption<T> SingleOption<T>(this IQueryable<T> self, Expression<Func<T, bool>> predicate)
 		{
-			return self.SingleOrDefault(predicate).ToMaybe();
+			return self.SingleOrDefault(predicate).ToOption();
 		}
 
 		/// <summary>
@@ -140,9 +140,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> SingleMaybe<T>(this IQueryable<T> self)
+		public static IOption<T> SingleOption<T>(this IQueryable<T> self)
 		{
-			return self.SingleOrDefault().ToMaybe();
+			return self.SingleOrDefault().ToOption();
 		}
 
 		/// <summary>
@@ -151,9 +151,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> FirstMaybe<T>(this IQueryable<T> self)
+		public static IOption<T> FirstOption<T>(this IQueryable<T> self)
 		{
-			return self.FirstOrDefault().ToMaybe();
+			return self.FirstOrDefault().ToOption();
 		}
 
 		/// <summary>
@@ -162,9 +162,9 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
 		/// <returns></returns>
-		public static IMaybe<T> FirstMaybe<T>(this IQueryable<T> self, Expression<Func<T, bool>> predicate)
+		public static IOption<T> FirstOption<T>(this IQueryable<T> self, Expression<Func<T, bool>> predicate)
 		{
-			return self.FirstOrDefault(predicate).ToMaybe();
+			return self.FirstOrDefault(predicate).ToOption();
 		}
 	}
 }
