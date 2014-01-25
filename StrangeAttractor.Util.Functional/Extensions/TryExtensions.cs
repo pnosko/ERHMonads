@@ -29,16 +29,5 @@ namespace StrangeAttractor.Util.Functional.Extensions
 			if (self.IsFailure)
 				Try.InvokeAction(invoke);
 		}
-
-		/// <summary>
-		/// Creates an instance of Either from Try, projecting the exception as a 'left' (on failure) and value as a 'right' (on success).
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="self"></param>
-		/// <returns>Either of an exception and a value.</returns>
-		public static IEither<Exception, T> ToEither<T>(this ITry<T> self)
-		{
-			return self.Fold(Either.Left<Exception, T>, Either.Right<Exception, T>);
-		}
 	}
 }

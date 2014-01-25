@@ -39,36 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\DiscriminatedUnion\Either.cs" />
-    <Compile Include="Interfaces\IEither.cs" />
-    <Compile Include="Interfaces\IFailProjection.cs" />
-    <Compile Include="Interfaces\ILeftProjection.cs" />
     <Compile Include="Interfaces\IOption.cs" />
-    <Compile Include="Interfaces\IRightProjection.cs" />
     <Compile Include="Interfaces\ITry.cs" />
-    <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Interfaces\IValue.cs" />
-    <Compile Include="Extensions\EitherExtensions.cs" />
     <Compile Include="Extensions\EnumerableMaybeExtensions.cs" />
     <Compile Include="Extensions\MaybeExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\TryExtensions.cs" />
-    <Compile Include="Extensions\ValidationExtensions.cs" />
-    <Compile Include="Singletons\Either.cs" />
     <Compile Include="Implementation\Error\Failure.cs" />
-    <Compile Include="Implementation\DiscriminatedUnion\Left.cs" />
-    <Compile Include="Implementation\DiscriminatedUnion\LeftProjection.cs" />
     <Compile Include="Singletons\Option.cs" />
     <Compile Include="Implementation\Maybe\None.cs" />
-    <Compile Include="Implementation\DiscriminatedUnion\Right.cs" />
-    <Compile Include="Implementation\DiscriminatedUnion\RightProjection.cs" />
     <Compile Include="Implementation\Maybe\Some.cs" />
     <Compile Include="Implementation\Error\Success.cs" />
     <Compile Include="Singletons\Try.cs" />
-    <Compile Include="Singletons\Validation.cs" />
-    <Compile Include="Implementation\BiasedDiscriminatedUnion\FailProjection.cs" />
-    <Compile Include="Implementation\BiasedDiscriminatedUnion\Failure.cs" />
-    <Compile Include="Implementation\BiasedDiscriminatedUnion\Success.cs" />
     <Compile Include="Interfaces\IOptionalValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

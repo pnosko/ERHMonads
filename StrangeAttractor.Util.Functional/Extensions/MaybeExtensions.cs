@@ -340,19 +340,6 @@ namespace StrangeAttractor.Util.Functional.Extensions
 		}
 
 		/// <summary>
-		/// Converts a Option to Either, using 'Right' when this encapsulates a value, 'Left' with the provided error otherwise.
-		/// </summary>
-		/// <typeparam name="TError"></typeparam>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="self"></param>
-		/// <param name="onNothing"></param>
-		/// <returns></returns>
-		public static IEither<TError, T> ToEither<TError, T>(this IOption<T> self, Func<TError> onNothing)
-		{
-			return self.Fold(Either.Right<TError, T>, () => Either.Left<TError, T>(onNothing()));
-		}
-
-		/// <summary>
 		/// Converts a Option to Try monad, with success if this encapsulates a value, or failure with the provided exception otherwise.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
