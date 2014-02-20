@@ -5,16 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using StrangeAttractor.Util.Functional.Extensions;
-using StrangeAttractor.Util.Functional.Tests.Data;
 
 namespace StrangeAttractor.Util.Functional.Tests
 {
     public class BasicOptionTest
     {
+        private class Dummy
+        {
+        }
+
+        private class SeparateDummy
+        {
+            public Dummy Dummy { get; set; }
+        }
+
         [Fact]
         public void WhenConvertingNullItDoesNotHaveValue()
         {
-            Person obj = null;
+            Dummy obj = null;
             var result = obj.ToOption();
 
             Assert.False(result.HasValue);
@@ -23,8 +31,8 @@ namespace StrangeAttractor.Util.Functional.Tests
         [Fact]
         public void WhenCastingToInvalidTypeItDoesNotHaveValue()
         {
-            Person obj = new Person();
-            var result = obj.Cast<Item>();
+            var obj = new Dummy();
+            var result = obj.Cast<SeparateDummy>();
 
             Assert.False(result.HasValue);
         }
@@ -32,12 +40,25 @@ namespace StrangeAttractor.Util.Functional.Tests
         [Fact]
         public void WhenUsingIntermediateSelectManyAndNotJoinedItHasNoValue()
         {
-            var result = from val1 in (new Person()).ToOption()
-                         from val2 in (new Item()).ToOption()
-                         select val2.Owner == val1;
+            var dummy = new Dummy();
+            var other = new SeparateDummy{ Dummy = dummy };
+
+            var result = from val1 in dummy.ToOption()
+                         from val2 in other.ToOption()
+                         select val2.Dummy == val1;
 
             Assert.True(result.HasValue);
-            Assert.False(result.GetOrDefault());
+            Assert.True(result.GetOrDefault());
+        }
+
+        [Fact]
+        public void WhenUsingIntermediateSelectManyAndNotJoinedItHasNoValue()
+        {
+            var result = from val1 in (new Dummy()).ToOption()
+                         from val2 in ((SeparateDummy)null).ToOption()
+                         select val2.Dummy == val1;
+
+            Assert.False(result.HasValue);
         }
     }
 }

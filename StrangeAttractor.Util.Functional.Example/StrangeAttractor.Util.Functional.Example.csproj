@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8D139694-EDCB-48F5-BD83-9241CECA4673}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{9724F3C9-606E-4764-AC47-B58096891E82}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StrangeAttractor.Util.Functional.Tests</RootNamespace>
-    <AssemblyName>StrangeAttractor.Util.Functional.Tests</AssemblyName>
+    <RootNamespace>StrangeAttractor.Util.Functional.Example</RootNamespace>
+    <AssemblyName>StrangeAttractor.Util.Functional.Example</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,22 +34,26 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic\BasicMaybeTest.cs" />
+    <Compile Include="Data\IEntity.cs" />
+    <Compile Include="Data\Inventory.cs" />
+    <Compile Include="Data\Item.cs" />
+    <Compile Include="Data\Person.cs" />
+    <Compile Include="Examples\IDataService.cs" />
+    <Compile Include="Examples\MockDatabaseServiceWrapper.cs" />
+    <Compile Include="Examples\MockDataService.cs" />
+    <Compile Include="Examples\ServiceTest.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StrangeAttractor.Util.Functional\StrangeAttractor.Util.Functional.csproj">

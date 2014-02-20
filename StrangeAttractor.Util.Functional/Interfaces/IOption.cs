@@ -8,6 +8,7 @@ namespace StrangeAttractor.Util.Functional.Interfaces
 	/// Encapsulates a value, or nothing.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
+    /// <summary>Maybe Monad.</summary>
 	public interface IOption<out T> : IValue<T>
 	{
 		bool HasValue { get; }
