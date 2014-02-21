@@ -8,19 +8,19 @@ using StrangeAttractor.Util.Functional.Extensions;
 
 namespace StrangeAttractor.Util.Functional.Tests
 {
+    public class Dummy
+    {
+    }
+
+    public class SeparateDummy
+    {
+        public Dummy Dummy { get; set; }
+    }
+
     public class BasicOptionTest
     {
-        private class Dummy
-        {
-        }
-
-        private class SeparateDummy
-        {
-            public Dummy Dummy { get; set; }
-        }
-
         [Fact]
-        public void WhenConvertingNullItDoesNotHaveValue()
+        public void WhenValueNull_ItDoesNotHaveAValue()
         {
             Dummy obj = null;
             var result = obj.ToOption();
@@ -29,7 +29,7 @@ namespace StrangeAttractor.Util.Functional.Tests
         }
 
         [Fact]
-        public void WhenCastingToInvalidTypeItDoesNotHaveValue()
+        public void WhenCastingToIncompatibleType_ItHasNoValue()
         {
             var obj = new Dummy();
             var result = obj.Cast<SeparateDummy>();
@@ -38,10 +38,10 @@ namespace StrangeAttractor.Util.Functional.Tests
         }
 
         [Fact]
-        public void WhenUsingIntermediateSelectManyAndNotJoinedItHasNoValue()
+        public void WhenUsingIntermediateSelectMany_ItHasAValue()
         {
             var dummy = new Dummy();
-            var other = new SeparateDummy{ Dummy = dummy };
+            var other = new SeparateDummy { Dummy = dummy };
 
             var result = from val1 in dummy.ToOption()
                          from val2 in other.ToOption()
@@ -52,7 +52,7 @@ namespace StrangeAttractor.Util.Functional.Tests
         }
 
         [Fact]
-        public void WhenUsingIntermediateSelectManyAndNotJoinedItHasNoValue()
+        public void WhenUsingIntermediateSelectManyWithNull_ItHasNoValue()
         {
             var result = from val1 in (new Dummy()).ToOption()
                          from val2 in ((SeparateDummy)null).ToOption()

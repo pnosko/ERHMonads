@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
+using System.Diagnostics;
 
 namespace StrangeAttractor.Util.Functional.Tests.Examples
 {
@@ -19,8 +19,6 @@ namespace StrangeAttractor.Util.Functional.Tests.Examples
             this._dataService = new MockDataService();
             this._dataServiceWrapper = new MockDatabaseServiceWrapper(this._dataService);
         }
-
-        [Fact]
         public void CanAddPerson()
         {
             var personTry = from item in this._dataServiceWrapper.AddEntity(new Item())
@@ -33,7 +31,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Examples
                 .Run(x => personTry.ToOption()
                     .Run(p => p.Inventory.Items.Add(x)));
 
-            Assert.True(personTry.IsSuccess);
+            Debug.Assert(personTry.IsSuccess);
         }
     }
 }
