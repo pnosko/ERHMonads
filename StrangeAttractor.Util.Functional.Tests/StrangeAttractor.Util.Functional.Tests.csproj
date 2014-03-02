@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Basic\BasicMaybeTest.cs" />
     <Compile Include="Basic\BasicTryTest.cs" />
+    <Compile Include="Basic\BasicValidationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
