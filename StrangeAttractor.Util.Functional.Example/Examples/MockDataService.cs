@@ -54,7 +54,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Examples
 
         private IList<T> GetList<T>() where T : IEntity
         {
-            return this.container.GetService(typeof(IList<T>)).Cast<IList<T>>().GetOrElse(() => new List<T>());
+            return this.container.GetService(typeof(IList<T>)).Cast<IList<T>>().GetOrEmpty();
         }
     }
 }

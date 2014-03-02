@@ -19,15 +19,35 @@ namespace StrangeAttractor.Util.Functional.Extensions
             return self.IsSuccess ? self.Value : @default;
         }
 
-        public static ITry<T> OnFailure<T>(this ITry<T> self, Func<T> invoke)
+        public static ITry<T> Flatten<T>(this ITry<ITry<T>> self)
         {
-            return self.IsSuccess ? self : Try.Invoke(invoke);
+            return self.SelectMany(x => x);
         }
 
-        public static void OnFailure<T>(this ITry<T> self, Action invoke)
+        public static ITry<T> OrElse<T>(this ITry<T> self, Func<ITry<T>> onElse)
         {
-            if (self.IsFailure)
-                Try.InvokeAction(invoke);
+            return self.IsSuccess ? self : onElse();
+        }
+
+        public static ITry<T> OrElse<T>(this ITry<T> self, ITry<T> onElse)
+        {
+            return self.IsSuccess ? self : onElse;
+        }
+
+        public static ITry<U> Recover<T, E, U>(this ITry<T> self, Func<E, U> rescue)
+            where E : Exception
+            where T : U
+        {
+            return self.Fold(e => e.Cast<E>().TrySelect(rescue).OrElse(Try.Failure<U>(e)), x => Try.Success<U>((U)x));
+        }
+
+        public static ITry<U> RecoverWith<T, E, U>(this ITry<T> self, Func<E, ITry<U>> rescue)
+            where E : Exception
+            where T : U
+        {
+            return self.Fold(
+                e => e.Cast<E>().Select(rescue).GetOrElse(Try.Failure<U>(e)), 
+                x => Try.Success<U>((U)x));
         }
     }
 }

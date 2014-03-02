@@ -79,5 +79,10 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
                 return Try.Failure<T>(e);
             }
         }
+
+        public IOption<Exception> AsFailed()
+        {
+            return Option.Nothing<Exception>();
+        }
     }
 }

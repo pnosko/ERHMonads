@@ -1,6 +1,7 @@
 ﻿using System;
 using StrangeAttractor.Util.Functional.Interfaces;
 using StrangeAttractor.Util.Functional.Singletons;
+using StrangeAttractor.Util.Functional.Extensions;
 
 namespace StrangeAttractor.Util.Functional.Implementation.Error
 {
@@ -35,22 +36,32 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
 
         public ITry<TResult> Select<TResult>(Func<T, TResult> selector)
         {
-            return this as ITry<TResult>;
+            return GetFailure<TResult>();
         }
 
         public ITry<TResult> SelectMany<TResult>(Func<T, ITry<TResult>> selector)
         {
-            return this as ITry<TResult>;
+            return GetFailure<TResult>();
         }
 
         public ITry<TResult> SelectMany<TIntermediate, TResult>(Func<T, ITry<TIntermediate>> intermediate, Func<T, TIntermediate, TResult> selector)
         {
-            return this as ITry<TResult>;
+            return GetFailure<TResult>();
         }
 
         public ITry<T> Where(Func<T, bool> predicate)
         {
             return this;
+        }
+
+        public IOption<Exception> AsFailed()
+        {
+            return this.Error.ToOption();
+        }
+
+        private ITry<TResult> GetFailure<TResult>()
+        {
+            return Try.Failure<TResult>(this.Error);
         }
     }
 }

@@ -52,6 +52,17 @@ namespace StrangeAttractor.Util.Functional.Extensions
         }
 
         /// <summary>
+        /// Retrieves the encapsulated collection (if exists), or and empty collection otherwise.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static IList<T> GetOrEmpty<T>(this IOption<IList<T>> self)
+        {
+            return self.GetOrElse(new List<T>());
+        }
+
+        /// <summary>
         /// Yields a collection with the value as a single element (if exists), or an empty collection;
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -239,7 +250,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
         }
 
         /// <summary>
-        /// Returns this Option if it encapsulates a value, otherwise the provided value lifted to a Option.
+        /// Returns this Option if it encapsulates a value, otherwise the provided value lifted to an Option.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="self"></param>
@@ -309,7 +320,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
         }
 
         /// <summary>
-        /// Converts a Option to Try monad, with success if this encapsulates a value, or failure with the provided exception otherwise.
+        /// Converts an Option to Try monad, with success if this encapsulates a value, or failure with the provided exception otherwise.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="self"></param>
@@ -320,7 +331,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
         }
 
         /// <summary>
-        /// Converts a Option to Try monad, with the success result of applying a provided function to the encapsulated value, or failure .
+        /// Converts an Option to Try monad, with the success result of applying a provided function to the encapsulated value, or failure .
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>

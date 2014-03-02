@@ -45,6 +45,7 @@
     <Compile Include="Data\Inventory.cs" />
     <Compile Include="Data\Item.cs" />
     <Compile Include="Data\Person.cs" />
+    <Compile Include="Examples\BasicTry.cs" />
     <Compile Include="Examples\IDataService.cs" />
     <Compile Include="Examples\MockDatabaseServiceWrapper.cs" />
     <Compile Include="Examples\MockDataService.cs" />

@@ -36,5 +36,27 @@ namespace StrangeAttractor.Util.Functional.Singletons
         {
             return new Failure<T>(error);
         }
+
+        /// <summary>
+        /// Pretends to pattern match on Try instance
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="R"></typeparam>
+        /// <param name="self"></param>
+        /// <param name="success"></param>
+        /// <param name="failure"></param>
+        /// <returns></returns>
+        /// <remarks>Does not respect contravariance.</remarks>
+        internal static R Match<T, R>(this ITry<T> self, Func<Success<T>, R> success, Func<Failure<T>, R> failure)
+        {
+            if (self.IsSuccess)
+            {
+                return success((Success<T>)self);
+            }
+            else
+            {
+                return failure((Failure<T>)self);
+            }
+        }
     }
 }

@@ -10,12 +10,32 @@ namespace StrangeAttractor.Util.Functional.Tests
 {
     public class Dummy
     {
+        public string Name { get; set; }
     }
+
+    public class LowerDummy : Dummy
+    {
+        public string Desc { get; set; }
+    }
+
 
     public class SeparateDummy
     {
         public Dummy Dummy { get; set; }
     }
+
+    public class DummyUpperException : ArgumentException
+    {
+        public DummyUpperException() : base() { }
+        public DummyUpperException(string message) : base("UPPER: " + message) { }
+    }
+
+    public class DummyLowerException : DummyUpperException
+    {
+        public DummyLowerException() : base() { }
+        public DummyLowerException(string message) : base("LOWER: " + message) { }
+    }
+
 
     public class BasicOptionTest
     {

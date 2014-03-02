@@ -26,5 +26,7 @@ namespace StrangeAttractor.Util.Functional.Interfaces
         ITry<TResult> SelectMany<TResult>(Func<T, ITry<TResult>> selector);
         ITry<TResult> SelectMany<TIntermediate, TResult>(Func<T, ITry<TIntermediate>> intermediate, Func<T, TIntermediate, TResult> selector);
         ITry<T> Where(Func<T, bool> predicate);
+
+        IOption<Exception> AsFailed();      // consider if it would be better to have ITry<Exception> to allow for monadic reuse
     }
 }
