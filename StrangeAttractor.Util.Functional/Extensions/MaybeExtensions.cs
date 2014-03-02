@@ -90,7 +90,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="self"></param>
-        /// <returns></returns>
+        /// <returns>The encapsulated instance, or a new instance. Never returns null.</returns>
         public static T GetOrSafeDefault<T>(this IOption<T> self) where T : class, new()
         {
             return self.GetOrElse(() => new T());
@@ -256,9 +256,10 @@ namespace StrangeAttractor.Util.Functional.Extensions
         /// <param name="self"></param>
         /// <param name="that"></param>
         /// <returns></returns>
-        public static IOption<T> OrElse<T>(this IOption<T> self, T that)
+        public static IOption<U> OrElse<T, U>(this IOption<T> self, U that)
+              where T : U
         {
-            return self.IsSomething() ? self : that.ToOption();
+            return self.IsSomething() ? (IOption<U>)self : that.ToOption();
         }
 
         /// <summary>
@@ -268,9 +269,10 @@ namespace StrangeAttractor.Util.Functional.Extensions
         /// <param name="self"></param>
         /// <param name="that"></param>
         /// <returns></returns>
-        public static IOption<T> OrElse<T>(this IOption<T> self, Func<IOption<T>> that)
+        public static IOption<U> OrElse<T, U>(this IOption<T> self, Func<IOption<U>> that)
+            where T : U
         {
-            return self.IsSomething() ? self : that();
+            return self.IsSomething() ? (IOption<U>)self : that();
         }
 
         /// <summary>
@@ -280,9 +282,10 @@ namespace StrangeAttractor.Util.Functional.Extensions
         /// <param name="self"></param>
         /// <param name="that"></param>
         /// <returns></returns>
-        public static IOption<T> OrElse<T>(this IOption<T> self, IOption<T> that)
+        public static IOption<U> OrElse<T, U>(this IOption<T> self, IOption<U> that)
+            where T : U
         {
-            return self.IsSomething() ? self : that;
+            return self.IsSomething() ? (IOption<U>)self : that;
         }
 
         /// <summary>

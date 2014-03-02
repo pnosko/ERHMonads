@@ -24,14 +24,16 @@ namespace StrangeAttractor.Util.Functional.Extensions
             return self.SelectMany(x => x);
         }
 
-        public static ITry<T> OrElse<T>(this ITry<T> self, Func<ITry<T>> onElse)
+        public static ITry<U> OrElse<T, U>(this ITry<T> self, Func<ITry<U>> onElse)
+            where T : U
         {
-            return self.IsSuccess ? self : onElse();
+            return self.IsSuccess ? (ITry<U>)self : onElse();
         }
 
-        public static ITry<T> OrElse<T>(this ITry<T> self, ITry<T> onElse)
+        public static ITry<U> OrElse<T, U>(this ITry<T> self, ITry<U> onElse)
+           where T : U
         {
-            return self.IsSuccess ? self : onElse;
+            return self.IsSuccess ? (ITry<U>)self : onElse;
         }
 
         public static ITry<U> Recover<T, E, U>(this ITry<T> self, Func<E, U> rescue)

@@ -40,8 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ValidationExtensions.cs" />
+    <Compile Include="Interfaces\IFailProjection.cs" />
     <Compile Include="Interfaces\IOption.cs" />
     <Compile Include="Interfaces\ITry.cs" />
+    <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Interfaces\IValue.cs" />
     <Compile Include="Extensions\EnumerableMaybeExtensions.cs" />
     <Compile Include="Extensions\MaybeExtensions.cs" />

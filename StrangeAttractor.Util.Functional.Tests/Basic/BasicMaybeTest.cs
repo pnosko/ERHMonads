@@ -36,9 +36,30 @@ namespace StrangeAttractor.Util.Functional.Tests
         public DummyLowerException(string message) : base("LOWER: " + message) { }
     }
 
-
     public class BasicOptionTest
     {
+        [Fact]
+        public void WhenValueExistsOrElseContravariant_ItHasAValue()
+        {
+            var dummy = new LowerDummy { Name = "name" };
+
+            var result = dummy.ToOption().OrElse(() => (new Dummy()).ToOption());
+
+            Assert.True(result.HasValue);
+            Assert.Equal("name", result.Value.Name);
+        }
+
+        [Fact]
+        public void WhenValueExistsOrElse_ItHasAValue()
+        {
+            var dummy = new LowerDummy { Name = "name" };
+
+            var result = dummy.ToOption().OrElse(() => (new LowerDummy()).ToOption());
+
+            Assert.True(result.HasValue);
+            Assert.Equal("name", result.Value.Name);
+        }
+
         [Fact]
         public void WhenValueNull_ItDoesNotHaveAValue()
         {
