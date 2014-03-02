@@ -51,5 +51,19 @@ namespace StrangeAttractor.Util.Functional.Extensions
                 e => e.Cast<E>().Select(rescue).GetOrElse(Try.Failure<U>(e)), 
                 x => Try.Success<U>((U)x));
         }
+
+        public static IValidation<Exception, TValue> ToValidation<TValue>(this ITry<TValue> self)
+        {
+            return self.Fold(
+                e => Validation.Failure<TValue>(e),
+                s => Validation.Success(s));
+        }
+
+        public static IValidation<TError, TValue> ToValidation<TError, TValue>(this ITry<TValue> self, Func<Exception,TError> onFailure)
+        {
+            return self.Fold(
+                e => Validation.Failure<TError, TValue>(onFailure(e)),
+                s => Validation.Success<TError, TValue>(s));
+        }
     }
 }

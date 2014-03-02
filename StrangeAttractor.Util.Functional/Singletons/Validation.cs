@@ -12,6 +12,11 @@ namespace StrangeAttractor.Util.Functional.Singletons
             return new Failure<TError, TValue>(error);
         }
 
+        public static IValidation<Exception, TValue> Failure<TValue>(Exception error)
+        {
+            return new Failure<Exception, TValue>(error);
+        }
+
         public static IValidation<TError, TValue> Success<TError, TValue>(TValue value)
         {
             return new Success<TError, TValue>(value);
