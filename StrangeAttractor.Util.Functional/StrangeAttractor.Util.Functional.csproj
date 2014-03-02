@@ -41,6 +41,9 @@
   <ItemGroup>
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ValidationExtensions.cs" />
+    <Compile Include="Implementation\Validations\FailProjection.cs" />
+    <Compile Include="Implementation\Validations\Failure.cs" />
+    <Compile Include="Implementation\Validations\Success.cs" />
     <Compile Include="Interfaces\IFailProjection.cs" />
     <Compile Include="Interfaces\IOption.cs" />
     <Compile Include="Interfaces\ITry.cs" />
@@ -58,6 +61,7 @@
     <Compile Include="Singletons\Try.cs" />
     <Compile Include="Interfaces\IOptionalValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singletons\Validation.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
