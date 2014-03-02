@@ -15,11 +15,6 @@ namespace StrangeAttractor.Util.Functional.Interfaces
         /// <summary>
         /// Retrieve a result of applying a function on either the result of the successful operation, or to the exception thrown by that operation.
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="onError">Function to be applied to an exception.</param>
-        /// <param name="onSuccess">Function to be applied to an success value.</param>
-        /// <returns>The result of applying one of the functions passed in.</returns>
-        /// <remarks>Analogous to <see cref="System.Collections.Generic.IEnumerable{T}"/>.Aggregate.</remarks>
         TResult Fold<TResult>(Func<Exception, TResult> onError, Func<T, TResult> onSuccess);
 
         ITry<TResult> Select<TResult>(Func<T, TResult> selector);

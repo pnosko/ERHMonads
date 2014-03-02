@@ -5,28 +5,20 @@ using StrangeAttractor.Util.Functional.Singletons;
 
 namespace StrangeAttractor.Util.Functional.Implementation.Error
 {
-    /// <summary>
-    /// Successful result of an operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    internal class Success<T> : ITry<T>
+    internal struct Success<T> : ITry<T>, IEquatable<ITry<T>>
     {
+        private readonly T _value;
+
         public Success(T value)
         {
-            this.Value = value;
+            this._value = value;
         }
 
-        public T Value { get; private set; }
+        public bool IsSuccess { get { return true; } }
+        public bool IsFailure { get { return false; } }
+        public bool HasValue { get { return IsSuccess; } }
 
-        public bool IsSuccess
-        {
-            get { return true; }
-        }
-
-        public bool IsFailure
-        {
-            get { return false; }
-        }
+        public T Value { get { return this._value; } }
 
         public IOption<T> ToOption()
         {
@@ -40,7 +32,8 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
 
         public ITry<TResult> Select<TResult>(Func<T, TResult> selector)
         {
-            return Try.Invoke(() => selector(this.Value));
+            var val = this.Value;
+            return Try.Invoke(() => selector(val));
         }
 
         public ITry<TResult> SelectMany<TResult>(Func<T, ITry<TResult>> selector)
@@ -59,7 +52,8 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
         {
             try
             {
-                return intermediate(this.Value).Select(x => selector(this.Value, x));
+                var val = this.Value;
+                return intermediate(this.Value).Select(x => selector(val, x));
             }
             catch (Exception e)
             {
@@ -83,6 +77,11 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
         public IOption<Exception> AsFailed()
         {
             return Option.Nothing<Exception>();
+        }
+
+        public bool Equals(ITry<T> other)
+        {
+            return other.HasValue && other.ToOption().Equals(this.ToOption());
         }
     }
 }

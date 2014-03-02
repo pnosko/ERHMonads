@@ -48,17 +48,5 @@ namespace StrangeAttractor.Util.Functional.Extensions
                 e => Try.Failure<TValue>(toFailure(e)),
                 s => Try.Success<TValue>(s));
         }
-
-        //public static IValidation<TResultError, TResultValue> SelectMany<TError, TValue, TIntermediate, TResultError, TResultValue>(this IFailProjection<TError, TValue> self, Func<TError, IValidation<TIntermediate, TResultValue>> intermediate, Func<TError, TIntermediate, TResultError> selector)
-        //   where TError : TResultError
-        //{
-        //    return null;
-        //}
-
-        //public static IValidation<TResultError, TResultValue> SelectMany<TError, TValue, TIntermediate, TResultError, TResultValue>(this IFailProjection<TError, TValue> self, Func<TError, IFailProjection<TIntermediate, TResultValue>> intermediate, Func<TError, TIntermediate, TResultError> selector)
-        //   where TError : TResultError
-        //{
-        //    return null;
-        //}
     }
 }

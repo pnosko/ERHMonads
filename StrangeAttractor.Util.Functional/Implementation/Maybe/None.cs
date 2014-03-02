@@ -7,12 +7,9 @@ namespace StrangeAttractor.Util.Functional.Implementation.Maybe
     {
         public static readonly IOption<T> Instance = new None<T>();
 
-        public T Value { get { throw new InvalidOperationException("No value."); } }
+        public bool HasValue { get { return false; } }
 
-        public bool HasValue
-        {
-            get { return false; }
-        }
+        public T Value { get { throw new InvalidOperationException("No value."); } }
 
         public TResult Fold<TResult>(Func<T, TResult> onSome, Func<TResult> onNone)
         {

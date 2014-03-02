@@ -5,7 +5,7 @@ using StrangeAttractor.Util.Functional.Singletons;
 
 namespace StrangeAttractor.Util.Functional.Implementation.Validations
 {
-    internal class FailProjection<TError, TValue> : IFailProjection<TError, TValue>
+    internal struct FailProjection<TError, TValue> : IFailProjection<TError, TValue>
     {
         private readonly IValidation<TError, TValue> _validation;
 
@@ -20,6 +20,8 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
                 e => Validation.Failure<TResultError, TValue>(selector(e)),
                 s => Validation.Success<TResultError, TValue>(s));
         }
+
+        public bool HasValue { get { return this.ToOption().HasValue; } }
 
         public TError Value
         {

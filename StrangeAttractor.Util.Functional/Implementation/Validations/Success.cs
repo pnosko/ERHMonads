@@ -6,7 +6,7 @@ using StrangeAttractor.Util.Functional.Extensions;
 
 namespace StrangeAttractor.Util.Functional.Implementation.Validations
 {
-    internal class Success<TError, TValue> : IValidation<TError, TValue>
+    internal struct Success<TError, TValue> : IValidation<TError, TValue>, IEquatable<IValidation<TError, TValue>>
     {
         private readonly TValue _value;
 
@@ -17,6 +17,7 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
 
         public bool IsSuccess { get { return true; } }
         public bool IsFailure { get { return false; } }
+        public bool HasValue { get { return IsSuccess; } }
 
         public TResult Fold<TResult>(Func<TError, TResult> onLeft, Func<TValue, TResult> onRight)
         {
@@ -35,6 +36,11 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
         public IOption<TValue> ToOption()
         {
             return this.Value.ToOption();
+        }
+
+        public bool Equals(IValidation<TError, TValue> other)
+        {
+            return other.HasValue && other.ToOption().Equals(this.ToOption());
         }
     }
 }

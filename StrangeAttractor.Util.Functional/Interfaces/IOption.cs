@@ -11,21 +11,11 @@ namespace StrangeAttractor.Util.Functional.Interfaces
     /// <summary>Maybe Monad.</summary>
     public interface IOption<out T> : IValue<T>
     {
-        bool HasValue { get; }
-
-        /// <summary>
-        /// Retrieve a result of applying a function on either the existent value, or to nothing.
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="onSome">Function to be applied to an existing value.</param>
-        /// <param name="onNone">Function to generate a result in the absence of a value.</param>
-        /// <returns>The result of applying one of the functions passed in.</returns>
-        /// <remarks>Analogous to <see cref="System.Collections.Generic.IEnumerable{T}"/>.Aggregate.</remarks>
         TResult Fold<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
 
         IOption<TResult> Select<TResult>(Func<T, TResult> selector);
         IOption<TResult> SelectMany<TResult>(Func<T, IOption<TResult>> selector);
-        IOption<TResult> SelectMany<TIntermediate, TResult>(Func<T, IOption<TIntermediate>> k, Func<T, TIntermediate, TResult> s);
+        IOption<TResult> SelectMany<TIntermediate, TResult>(Func<T, IOption<TIntermediate>> intermediate, Func<T, TIntermediate, TResult> selector);
         IOption<T> Where(Func<T, bool> predicate);
     }
 }

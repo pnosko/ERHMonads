@@ -7,6 +7,11 @@ namespace StrangeAttractor.Util.Functional.Implementation.Maybe
     {
         private readonly T _value;
 
+        public Some(T value)
+        {
+            this._value = value;
+        }
+
         public T Value
         {
             get { return this._value; }
@@ -39,11 +44,6 @@ namespace StrangeAttractor.Util.Functional.Implementation.Maybe
                 return this;
             }
             return new None<T>();
-        }
-
-        public Some(T value)
-        {
-            this._value = value;
         }
 
         public bool Equals(IOption<T> other)

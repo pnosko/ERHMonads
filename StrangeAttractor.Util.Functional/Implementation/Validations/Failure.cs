@@ -4,7 +4,7 @@ using StrangeAttractor.Util.Functional.Singletons;
 
 namespace StrangeAttractor.Util.Functional.Implementation.Validations
 {
-    internal class Failure<TError, TValue> : IValidation<TError, TValue>
+    internal struct Failure<TError, TValue> : IValidation<TError, TValue>, IEquatable<IValidation<TError, TValue>>
     {
         private readonly TError _exception;
 
@@ -13,10 +13,11 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
             this._exception = exception;
         }
 
-        public TValue Value { get { throw new NotImplementedException(); } }
+        public TValue Value { get { throw new InvalidOperationException("No value."); } }
 
         public bool IsSuccess { get { return false; } }
         public bool IsFailure { get { return true; } }
+        public bool HasValue { get { return IsSuccess; } }
 
         internal TError Error
         {
@@ -40,16 +41,6 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
 
         public IFailProjection<TError, TValue> Fail { get { return new FailProjection<TError, TValue>(this); } }
 
-        //public IValidation<TError, TValue> SelectMany<TResult>(Func<T, ITry<TResult>> selector)
-        //{
-        //    return GetFailure<TResult>();
-        //}
-
-        //public IValidation<TError, TValue> SelectMany<TIntermediate, TResult>(Func<T, ITry<TIntermediate>> intermediate, Func<T, TIntermediate, TResult> selector)
-        //{
-        //    return GetFailure<TResult>();
-        //}
-
         public IValidation<TError, TValue> Where(Func<TValue, bool> predicate)
         {
             return this;
@@ -58,6 +49,11 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
         private IValidation<TError, TResult> GetFailure<TResult>()
         {
             return Validation.Failure<TError, TResult>(this.Error);
+        }
+
+        public bool Equals(IValidation<TError, TValue> other)
+        {
+            return !other.HasValue;
         }
     }
 }

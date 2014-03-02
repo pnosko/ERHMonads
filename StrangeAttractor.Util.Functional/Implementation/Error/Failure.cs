@@ -5,24 +5,22 @@ using StrangeAttractor.Util.Functional.Extensions;
 
 namespace StrangeAttractor.Util.Functional.Implementation.Error
 {
-    internal class Failure<T> : ITry<T>
+    internal struct Failure<T> : ITry<T>, IEquatable<ITry<T>>
     {
-        private readonly Exception _exception;
+        private readonly Exception _error;
 
         public Failure(Exception exception)
         {
-            this._exception = exception;
+            this._error = exception;
         }
-
-        public T Value { get { throw this.Error; } }
 
         public bool IsSuccess { get { return false; } }
         public bool IsFailure { get { return true; } }
+        public bool HasValue { get { return IsSuccess; } }
 
-        public Exception Error
-        {
-            get { return this._exception; }
-        }
+        public T Value { get { throw this.Error; } }
+
+        internal Exception Error { get { return this._error; } }
 
         public IOption<T> ToOption()
         {
@@ -62,6 +60,12 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
         private ITry<TResult> GetFailure<TResult>()
         {
             return Try.Failure<TResult>(this.Error);
+        }
+
+        public bool Equals(ITry<T> other)
+        {
+            var err = this.Error;
+            return other.IsFailure && other.AsFailed().SelectOrDefault(x => x.Equals(err));
         }
     }
 }
