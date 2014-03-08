@@ -52,18 +52,18 @@ namespace StrangeAttractor.Util.Functional.Extensions
                 x => Try.Success<U>((U)x));
         }
 
-        public static IValidation<Exception, TValue> ToValidation<TValue>(this ITry<TValue> self)
+        public static IDisjunction<Exception, TValue> ToDisjunction<TValue>(this ITry<TValue> self)
         {
             return self.Fold(
-                e => Validation.Failure<TValue>(e),
-                s => Validation.Success(s));
+                e => Disjunction.Failure<TValue>(e),
+                s => Disjunction.Success(s));
         }
 
-        public static IValidation<TError, TValue> ToValidation<TError, TValue>(this ITry<TValue> self, Func<Exception,TError> onFailure)
+        public static IDisjunction<TError, TValue> ToDisjunction<TError, TValue>(this ITry<TValue> self, Func<Exception,TError> onFailure)
         {
             return self.Fold(
-                e => Validation.Failure<TError, TValue>(onFailure(e)),
-                s => Validation.Success<TError, TValue>(s));
+                e => Disjunction.Failure<TError, TValue>(onFailure(e)),
+                s => Disjunction.Success<TError, TValue>(s));
         }
     }
 }

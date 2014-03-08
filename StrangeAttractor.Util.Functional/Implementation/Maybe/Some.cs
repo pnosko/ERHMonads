@@ -56,5 +56,13 @@ namespace StrangeAttractor.Util.Functional.Implementation.Maybe
             var val = this.Value;
             return intermediate(val).SelectMany(x => new Some<TResult>(selector(val, x)));
         }
+
+        public IOption<TResult> As<TResult>() where TResult : class
+        {
+            return from m in this
+                   let t = m as TResult
+                   where t != null
+                   select t;
+        }
     }
 }

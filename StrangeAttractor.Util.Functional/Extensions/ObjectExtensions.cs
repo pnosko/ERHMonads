@@ -42,5 +42,10 @@ namespace StrangeAttractor.Util.Functional.Extensions
             action(self);
             return self;
         }
+
+        public static IEnumerable<T> ToEnumerable<T>(this T self)
+        {
+            return self.ToOption().ToEnumerable();
+        }
     }
 }

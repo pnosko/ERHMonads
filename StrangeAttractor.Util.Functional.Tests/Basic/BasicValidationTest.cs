@@ -10,17 +10,17 @@ using Xunit;
 
 namespace StrangeAttractor.Util.Functional.Tests.Basic
 {
-    public class BasicValidationTest
+    public class BasicDisjunctionTest
     {
         [Fact]
         public void WhenFailureSelectManySimple_HasExceptionValue()
         {
             var obj = GetDummy(true);
 
-            var result = obj.SelectMany(x => Validation.Success<DummyLowerException, LowerDummy>(new LowerDummy { Name = "different" }));
+            var result = obj.SelectMany(x => Disjunction.Success<DummyLowerException, LowerDummy>(new LowerDummy { Name = "different" }));
 
-            Assert.False(result.IsSuccess);
-            Assert.True(result.IsFailure);
+            Assert.False(result.IsRight);
+            Assert.True(result.IsLeft);
             Assert.True(result.Fail.Value.Message.EndsWith("exception"));
         }
 
@@ -29,10 +29,10 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         {
             var obj = GetDummy(true);
 
-            var result = obj.SelectMany(x => Validation.Success<DummyUpperException, LowerDummy>(new LowerDummy { Name = "different" }));
+            var result = obj.SelectMany(x => Disjunction.Success<DummyUpperException, LowerDummy>(new LowerDummy { Name = "different" }));
 
-            Assert.False(result.IsSuccess);
-            Assert.True(result.IsFailure);
+            Assert.False(result.IsRight);
+            Assert.True(result.IsLeft);
             Assert.True(result.Fail.Value.Message.EndsWith("exception"));
         }
 
@@ -41,10 +41,10 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         {
             var obj = GetDummy();
 
-            var result = obj.SelectMany(x => Validation.Success<DummyUpperException, Dummy>(new LowerDummy { Name = "different " + x.Name}));
+            var result = obj.SelectMany(x => Disjunction.Success<DummyUpperException, Dummy>(new LowerDummy { Name = "different " + x.Name}));
 
-            Assert.True(result.IsSuccess);
-            Assert.False(result.IsFailure);
+            Assert.True(result.IsRight);
+            Assert.False(result.IsLeft);
             Assert.True(result.Value.Name.Equals("different name"));
         }
 
@@ -58,11 +58,24 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
                          from sth1 in obj2
                          select sth.Name == sth1.Name;
 
-            Assert.True(result.IsSuccess);
-            Assert.False(result.IsFailure);
+            Assert.True(result.IsRight);
+            Assert.False(result.IsLeft);
             Assert.True(result.Value);
         }
 
+
+        [Fact]
+        public void WhenSuccessSelectManyAggregateFailure_HasAggregateError()
+        {
+            var obj = GetDummy(true);
+            var obj2 = GetDummy(true);
+
+            var result = obj.SelectManyAggregate(x => obj2.Select(y => y.Name == x.Name));
+
+            Assert.True(result.IsRight);
+            Assert.False(result.IsLeft);
+            Assert.True(result.Value);
+        }
         //[Fact]
         //public void WhenFailSelectManyIntermediateSimple_HasSuccessValue()
         //{
@@ -77,13 +90,13 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         //    Assert.True(result.Value);
         //}
 
-        private IValidation<DummyLowerException, LowerDummy> GetDummy(bool fail = false)
+        private IDisjunction<DummyLowerException, LowerDummy> GetDummy(bool fail = false)
         {
             if (fail)
             {
-                return Validation.Failure<DummyLowerException, LowerDummy>(new DummyLowerException("exception"));
+                return Disjunction.Failure<DummyLowerException, LowerDummy>(new DummyLowerException("exception"));
             }
-            return Validation.Success<DummyLowerException, LowerDummy>(new LowerDummy { Name = "name" });
+            return Disjunction.Success<DummyLowerException, LowerDummy>(new LowerDummy { Name = "name" });
         }
     }
 }

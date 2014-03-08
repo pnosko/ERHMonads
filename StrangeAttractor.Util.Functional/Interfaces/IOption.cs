@@ -12,6 +12,7 @@ namespace StrangeAttractor.Util.Functional.Interfaces
     public interface IOption<out T> : IValue<T>
     {
         TResult Fold<TResult>(Func<T, TResult> onSome, Func<TResult> onNone);
+        IOption<TResult> As<TResult>() where TResult : class;
 
         IOption<TResult> Select<TResult>(Func<T, TResult> selector);
         IOption<TResult> SelectMany<TResult>(Func<T, IOption<TResult>> selector);

@@ -40,5 +40,10 @@ namespace StrangeAttractor.Util.Functional.Implementation.Maybe
         {
             return None<TResult>.Instance;
         }
+
+        public IOption<TResult> As<TResult>() where TResult : class
+        {
+            return None<TResult>.Instance;
+        }
     }
 }

@@ -2,9 +2,9 @@
 using StrangeAttractor.Util.Functional.Interfaces;
 using StrangeAttractor.Util.Functional.Singletons;
 
-namespace StrangeAttractor.Util.Functional.Implementation.Validations
+namespace StrangeAttractor.Util.Functional.Implementation.Disjunctions
 {
-    internal struct Failure<TError, TValue> : IValidation<TError, TValue>, IEquatable<IValidation<TError, TValue>>
+    internal struct Failure<TError, TValue> : IDisjunction<TError, TValue>, IEquatable<IDisjunction<TError, TValue>>
     {
         private readonly TError _exception;
 
@@ -15,9 +15,9 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
 
         public TValue Value { get { throw new InvalidOperationException("No value."); } }
 
-        public bool IsSuccess { get { return false; } }
-        public bool IsFailure { get { return true; } }
-        public bool HasValue { get { return IsSuccess; } }
+        public bool IsRight { get { return false; } }
+        public bool IsLeft { get { return true; } }
+        public bool HasValue { get { return IsRight; } }
 
         internal TError Error
         {
@@ -34,26 +34,31 @@ namespace StrangeAttractor.Util.Functional.Implementation.Validations
             return onError(this.Error);
         }
 
-        public IValidation<TError, TResult> Select<TResult>(Func<TValue, TResult> selector)
+        public IDisjunction<TError, TResult> Select<TResult>(Func<TValue, TResult> selector)
         {
             return GetFailure<TResult>();
         }
 
         public IFailProjection<TError, TValue> Fail { get { return new FailProjection<TError, TValue>(this); } }
 
-        public IValidation<TError, TValue> Where(Func<TValue, bool> predicate)
+        public IDisjunction<TError, TValue> Where(Func<TValue, bool> predicate)
         {
             return this;
         }
 
-        private IValidation<TError, TResult> GetFailure<TResult>()
+        private IDisjunction<TError, TResult> GetFailure<TResult>()
         {
-            return Validation.Failure<TError, TResult>(this.Error);
+            return Disjunction.Failure<TError, TResult>(this.Error);
         }
 
-        public bool Equals(IValidation<TError, TValue> other)
+        public bool Equals(IDisjunction<TError, TValue> other)
         {
             return !other.HasValue;
+        }
+
+        public IDisjunction<TValue, TError> Swapped()
+        {
+            return Disjunction.Success<TValue, TError>(this.Error);
         }
     }
 }
