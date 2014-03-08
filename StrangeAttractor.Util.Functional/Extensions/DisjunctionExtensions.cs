@@ -50,7 +50,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
             where TValue : TResultValue
             where TResultValue : class  // TODO: Remove this limitation
         {
-            return self.ToOption().As<TResultValue>().GetOrElse(@default);
+            return self.AsOption().As<TResultValue>().GetOrElse(@default);
         }
 
         public static IDisjunction<TResultError, TResultValue> OrElse<TError, TValue, TResultError, TResultValue>(this IDisjunction<TError, TValue> self, Func<IDisjunction<TResultError, TResultValue>> @default)

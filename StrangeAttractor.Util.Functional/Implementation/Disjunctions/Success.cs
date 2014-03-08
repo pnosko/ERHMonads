@@ -24,8 +24,6 @@ namespace StrangeAttractor.Util.Functional.Implementation.Disjunctions
             return onRight(this.Value);
         }
 
-        public IFailProjection<TError, TValue> Fail { get { return new FailProjection<TError, TValue>(this); } }
-
         public IDisjunction<TError, TResultValue> Select<TResultValue>(Func<TValue, TResultValue> selector)
         {
             return Disjunction.Success<TError, TResultValue>(selector(this.Value));
@@ -33,14 +31,14 @@ namespace StrangeAttractor.Util.Functional.Implementation.Disjunctions
 
         public TValue Value { get { return this._value; } }
 
-        public IOption<TValue> ToOption()
+        public IOption<TValue> AsOption()
         {
             return this.Value.ToOption();
         }
 
         public bool Equals(IDisjunction<TError, TValue> other)
         {
-            return other.HasValue && other.ToOption().Equals(this.ToOption());
+            return other.HasValue && other.AsOption().Equals(this.AsOption());
         }
 
         public IDisjunction<TValue, TError> Swapped()

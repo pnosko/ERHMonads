@@ -24,7 +24,7 @@ namespace StrangeAttractor.Util.Functional.Implementation.Disjunctions
             get { return this._exception; }
         }
 
-        public IOption<TValue> ToOption()
+        public IOption<TValue> AsOption()
         {
             return Option.Nothing<TValue>();
         }
@@ -38,8 +38,6 @@ namespace StrangeAttractor.Util.Functional.Implementation.Disjunctions
         {
             return GetFailure<TResult>();
         }
-
-        public IFailProjection<TError, TValue> Fail { get { return new FailProjection<TError, TValue>(this); } }
 
         public IDisjunction<TError, TValue> Where(Func<TValue, bool> predicate)
         {

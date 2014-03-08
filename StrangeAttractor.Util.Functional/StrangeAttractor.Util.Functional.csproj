@@ -41,10 +41,8 @@
   <ItemGroup>
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DisjunctionExtensions.cs" />
-    <Compile Include="Implementation\Disjunctions\FailProjection.cs" />
     <Compile Include="Implementation\Disjunctions\Failure.cs" />
     <Compile Include="Implementation\Disjunctions\Success.cs" />
-    <Compile Include="Interfaces\IFailProjection.cs" />
     <Compile Include="Interfaces\IOption.cs" />
     <Compile Include="Interfaces\ITry.cs" />
     <Compile Include="Interfaces\IDisjunction.cs" />

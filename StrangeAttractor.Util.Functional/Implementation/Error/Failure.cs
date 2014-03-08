@@ -22,7 +22,7 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
 
         internal Exception Error { get { return this._error; } }
 
-        public IOption<T> ToOption()
+        public IOption<T> AsOption()
         {
             return Option.Nothing<T>();
         }

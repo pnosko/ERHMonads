@@ -27,8 +27,8 @@ namespace StrangeAttractor.Util.Functional.Tests.Examples
                     select person;
 
             // Add new item
-            this._dataServiceWrapper.AddEntity(new Item { Description = "Bag of Holding" }).ToOption()
-                .Run(x => personTry.ToOption()
+            this._dataServiceWrapper.AddEntity(new Item { Description = "Bag of Holding" }).AsOption()
+                .Run(x => personTry.AsOption()
                     .Run(p => p.Inventory.Items.Add(x)));
 
             Debug.Assert(personTry.IsSuccess);

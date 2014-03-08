@@ -38,7 +38,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
             var result = TryGetDummy(true).Select(x => "new string");
 
             Assert.True(result.IsFailure);
-            Assert.False(result.ToOption().HasValue);
+            Assert.False(result.AsOption().HasValue);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
             var result = TryGetLowerDummy(true).RecoverWith((ArgumentNullException x) => Try.Invoke(() => new Dummy { Name = x.Message }));
 
             Assert.True(result.IsFailure);
-            Assert.False(result.ToOption().HasValue);
+            Assert.False(result.AsOption().HasValue);
             Assert.Equal("UPPER: LOWER: lower exception", result.AsFailed().Value.Message);
         }
 
@@ -95,7 +95,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
             var result = TryGetLowerDummy(true).RecoverWith((ArgumentNullException x) => Try.Invoke(() => new Dummy { Name = x.Message }));
 
             Assert.True(result.IsFailure);
-            Assert.False(result.ToOption().HasValue);
+            Assert.False(result.AsOption().HasValue);
             Assert.Equal("UPPER: LOWER: lower exception", result.AsFailed().Value.Message);
         }
 

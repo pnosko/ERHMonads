@@ -21,7 +21,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
 
             Assert.False(result.IsRight);
             Assert.True(result.IsLeft);
-            Assert.True(result.Fail.Value.Message.EndsWith("exception"));
+            Assert.True(result.Swapped().Value.Message.EndsWith("exception"));
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
 
             Assert.False(result.IsRight);
             Assert.True(result.IsLeft);
-            Assert.True(result.Fail.Value.Message.EndsWith("exception"));
+            Assert.True(result.Swapped().Value.Message.EndsWith("exception"));
         }
 
         [Fact]

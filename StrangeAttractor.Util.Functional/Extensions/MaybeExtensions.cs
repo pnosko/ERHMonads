@@ -197,7 +197,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
         /// <returns>The encapsulated value, if cast was successful, otherwise nonexistent value.</returns>
         public static IOption<T> Cast<T>(this object self)
         {
-            return Try.Invoke(() => (T)self).ToOption();
+            return Try.Invoke(() => (T)self).AsOption();
         }
 
         /// <summary>

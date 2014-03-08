@@ -20,7 +20,7 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
 
         public T Value { get { return this._value; } }
 
-        public IOption<T> ToOption()
+        public IOption<T> AsOption()
         {
             return this.Value.ToOption();
         }
@@ -81,7 +81,7 @@ namespace StrangeAttractor.Util.Functional.Implementation.Error
 
         public bool Equals(ITry<T> other)
         {
-            return other.HasValue && other.ToOption().Equals(this.ToOption());
+            return other.HasValue && other.AsOption().Equals(this.AsOption());
         }
     }
 }
