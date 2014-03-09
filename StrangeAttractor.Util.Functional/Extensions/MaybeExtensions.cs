@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-//using StrangeAttractor.Util.Extensions;
 using StrangeAttractor.Util.Functional.Interfaces;
-using StrangeAttractor.Util.Functional.Implementation;
 using StrangeAttractor.Util.Functional.Singletons;
 
 namespace StrangeAttractor.Util.Functional.Extensions

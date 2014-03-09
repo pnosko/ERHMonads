@@ -55,15 +55,15 @@ namespace StrangeAttractor.Util.Functional.Extensions
         public static IDisjunction<Exception, TValue> ToDisjunction<TValue>(this ITry<TValue> self)
         {
             return self.Fold(
-                e => Disjunction.Failure<TValue>(e),
-                s => Disjunction.Success(s));
+                e => Disjunction.Left<TValue>(e),
+                s => Disjunction.Right(s));
         }
 
         public static IDisjunction<TError, TValue> ToDisjunction<TError, TValue>(this ITry<TValue> self, Func<Exception,TError> onFailure)
         {
             return self.Fold(
-                e => Disjunction.Failure<TError, TValue>(onFailure(e)),
-                s => Disjunction.Success<TError, TValue>(s));
+                e => Disjunction.Left<TError, TValue>(onFailure(e)),
+                s => Disjunction.Right<TError, TValue>(s));
         }
     }
 }

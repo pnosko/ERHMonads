@@ -17,7 +17,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         {
             var obj = GetDummy(true);
 
-            var result = obj.SelectMany(x => Disjunction.Success<DummyLowerException, LowerDummy>(new LowerDummy { Name = "different" }));
+            var result = obj.SelectMany(x => Disjunction.Right<DummyLowerException, LowerDummy>(new LowerDummy { Name = "different" }));
 
             Assert.False(result.IsRight);
             Assert.True(result.IsLeft);
@@ -29,7 +29,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         {
             var obj = GetDummy(true);
 
-            var result = obj.SelectMany(x => Disjunction.Success<DummyUpperException, LowerDummy>(new LowerDummy { Name = "different" }));
+            var result = obj.SelectMany(x => Disjunction.Right<DummyUpperException, LowerDummy>(new LowerDummy { Name = "different" }));
 
             Assert.False(result.IsRight);
             Assert.True(result.IsLeft);
@@ -41,7 +41,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         {
             var obj = GetDummy();
 
-            var result = obj.SelectMany(x => Disjunction.Success<DummyUpperException, Dummy>(new LowerDummy { Name = "different " + x.Name}));
+            var result = obj.SelectMany(x => Disjunction.Right<DummyUpperException, Dummy>(new LowerDummy { Name = "different " + x.Name}));
 
             Assert.True(result.IsRight);
             Assert.False(result.IsLeft);
@@ -64,18 +64,6 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         }
 
 
-        [Fact]
-        public void WhenSuccessSelectManyAggregateFailure_HasAggregateError()
-        {
-            var obj = GetDummy(true);
-            var obj2 = GetDummy(true);
-
-            var result = obj.SelectManyAggregate(x => obj2.Select(y => y.Name == x.Name));
-
-            Assert.True(result.IsRight);
-            Assert.False(result.IsLeft);
-            Assert.True(result.Value);
-        }
         //[Fact]
         //public void WhenFailSelectManyIntermediateSimple_HasSuccessValue()
         //{
@@ -94,9 +82,9 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         {
             if (fail)
             {
-                return Disjunction.Failure<DummyLowerException, LowerDummy>(new DummyLowerException("exception"));
+                return Disjunction.Left<DummyLowerException, LowerDummy>(new DummyLowerException("exception"));
             }
-            return Disjunction.Success<DummyLowerException, LowerDummy>(new LowerDummy { Name = "name" });
+            return Disjunction.Right<DummyLowerException, LowerDummy>(new LowerDummy { Name = "name" });
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿using StrangeAttractor.Util.Functional.Interfaces;
+﻿using System;
+using StrangeAttractor.Util.Functional.Interfaces;
 using StrangeAttractor.Util.Functional.Singletons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StrangeAttractor.Util.Functional.Extensions
 {
@@ -14,7 +10,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
             where TError : TResultError
         {
             return self.Fold(
-                e => Disjunction.Failure<TResultError, TResultValue>((TResultError)e),
+                e => Disjunction.Left<TResultError, TResultValue>((TResultError)e),
                 s => selector(s));
         }
 
@@ -22,13 +18,8 @@ namespace StrangeAttractor.Util.Functional.Extensions
             where TError : TResultError
         {
             return self.Fold(
-                e => Disjunction.Failure<TResultError, TResultValue>((TResultError)e),
+                e => Disjunction.Left<TResultError, TResultValue>((TResultError)e),
                 s => intermediate(s).Select(i => selector(s, i)));
-        }
-
-        public static IDisjunction<IEnumerable<TResultError>, TResultValue> SelectManyAggregate<TError, TValue, TResultError, TResultValue>(this IDisjunction<TError, TValue> self, Func<TValue, IDisjunction<TResultError, TResultValue>> selector)
-        {
-            return null;
         }
 
         public static ITry<TValue> ToTry<TError, TValue>(this IDisjunction<TError, TValue> self)

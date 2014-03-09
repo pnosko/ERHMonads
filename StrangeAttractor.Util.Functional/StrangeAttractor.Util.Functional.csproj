@@ -41,8 +41,12 @@
   <ItemGroup>
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DisjunctionExtensions.cs" />
-    <Compile Include="Implementation\Disjunctions\Failure.cs" />
-    <Compile Include="Implementation\Disjunctions\Success.cs" />
+    <Compile Include="Extensions\ValidationExtensions.cs" />
+    <Compile Include="Implementation\Disjunctions\Left.cs" />
+    <Compile Include="Implementation\Disjunctions\Right.cs" />
+    <Compile Include="Implementation\Validations\Failure.cs" />
+    <Compile Include="Implementation\Validations\Success.cs" />
+    <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Interfaces\IOption.cs" />
     <Compile Include="Interfaces\ITry.cs" />
     <Compile Include="Interfaces\IDisjunction.cs" />
@@ -60,6 +64,7 @@
     <Compile Include="Interfaces\IOptionalValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singletons\Validation.cs" />
+    <Compile Include="Singletons\Disjunction.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
