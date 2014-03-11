@@ -172,33 +172,6 @@ namespace StrangeAttractor.Util.Functional.Extensions
         }
 
         /// <summary>
-        /// Casts the encapsulated value to the provided type (if exists and cast successful).
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static IOption<TResult> As<T, TResult>(this IOption<T> self) where TResult : class
-        {
-            return from m in self
-                   let t = m as TResult
-                   where t != null
-                   select t;
-        }
-
-        /// <summary>
-        /// Casts the value to the provided type.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="self"></param>
-        /// <returns>The encapsulated value, if cast was successful, otherwise nonexistent value.</returns>
-        public static IOption<T> Cast<T>(this object self)
-        {
-            return Try.Invoke(() => (T)self).AsOption();
-        }
-
-        /// <summary>
         /// Converts the Option of a struct to a Nullable.
         /// </summary>
         /// <typeparam name="T"></typeparam>

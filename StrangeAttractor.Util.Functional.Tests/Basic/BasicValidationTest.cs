@@ -41,7 +41,7 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
         {
             var obj = GetDummy();
 
-            var result = obj.SelectMany(x => Disjunction.Right<DummyUpperException, Dummy>(new LowerDummy { Name = "different " + x.Name}));
+            var result = obj.SelectMany(x => Disjunction.Right<DummyUpperException, Dummy>(new LowerDummy { Name = "different " + x.Name }));
 
             Assert.True(result.IsRight);
             Assert.False(result.IsLeft);
@@ -62,21 +62,6 @@ namespace StrangeAttractor.Util.Functional.Tests.Basic
             Assert.False(result.IsLeft);
             Assert.True(result.Value);
         }
-
-
-        //[Fact]
-        //public void WhenFailSelectManyIntermediateSimple_HasSuccessValue()
-        //{
-        //    var obj = GetDummy(true);
-        //    var obj2 = GetDummy(true);
-
-        //    var result = from sth in obj.Fail
-        //                 from sth1 in obj2.Fail
-        //                 select sth.Message == sth1.Message;
-
-        //    Assert.True(result.IsFailure);
-        //    Assert.True(result.Value);
-        //}
 
         private IDisjunction<DummyLowerException, LowerDummy> GetDummy(bool fail = false)
         {

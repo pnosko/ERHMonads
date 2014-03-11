@@ -1,11 +1,7 @@
-﻿using StrangeAttractor.Util.Functional.Interfaces;
-using StrangeAttractor.Util.Functional.Singletons;
+﻿using System;
 using StrangeAttractor.Util.Functional.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using StrangeAttractor.Util.Functional.Interfaces;
+using StrangeAttractor.Util.Functional.Singletons;
 using Xunit;
 
 namespace StrangeAttractor.Util.Functional.Tests.Basic

@@ -49,6 +49,7 @@
     <Compile Include="Examples\IDataService.cs" />
     <Compile Include="Examples\MockDatabaseServiceWrapper.cs" />
     <Compile Include="Examples\MockDataService.cs" />
+    <Compile Include="Examples\PersonInfo.cs" />
     <Compile Include="Examples\ServiceTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

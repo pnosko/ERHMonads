@@ -1,6 +1,7 @@
 ﻿using System;
 using StrangeAttractor.Util.Functional.Interfaces;
 using StrangeAttractor.Util.Functional.Implementation.Error;
+using System.Threading.Tasks;
 
 namespace StrangeAttractor.Util.Functional.Singletons
 {
@@ -10,11 +11,11 @@ namespace StrangeAttractor.Util.Functional.Singletons
         {
             try
             {
-                return new Success<T>(function());
+                return Success<T>(function());
             }
             catch (Exception e)
             {
-                return new Failure<T>(e);
+                return Failure<T>(e);
             }
         }
 
@@ -57,6 +58,26 @@ namespace StrangeAttractor.Util.Functional.Singletons
             {
                 return failure((Failure<T>)self);
             }
+        }
+
+        /// <summary>
+        /// Creates a Try from Task.
+        /// TASK MUST BE COMPLETED!
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        internal static ITry<T> FromTask<T>(Task<T> task)
+        {
+            if(!task.IsCompleted)
+            {
+                return Failure<T>(new Exception("Task not completed."));
+            }
+            if (task.IsFaulted)
+            {
+                return Failure<T>(task.Exception);
+            }
+            return Success<T>(task.Result);
         }
     }
 }

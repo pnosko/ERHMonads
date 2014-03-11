@@ -22,7 +22,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
                 s => intermediate(s).Select(i => selector(s, i)));
         }
 
-        public static ITry<TValue> ToTry<TError, TValue>(this IDisjunction<TError, TValue> self)
+        public static ITry<TValue> AsTry<TError, TValue>(this IDisjunction<TError, TValue> self)
             where TError : Exception
         {
             return self.Fold(
@@ -30,7 +30,7 @@ namespace StrangeAttractor.Util.Functional.Extensions
                 s => Try.Success<TValue>(s));
         }
 
-        public static ITry<TValue> ToTry<TError, TValue>(this IDisjunction<TError, TValue> self, Func<TError, Exception> toFailure)
+        public static ITry<TValue> AsTry<TError, TValue>(this IDisjunction<TError, TValue> self, Func<TError, Exception> toFailure)
         {
             return self.Fold(
                 e => Try.Failure<TValue>(toFailure(e)),

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using StrangeAttractor.Util.Functional.Interfaces;
 using StrangeAttractor.Util.Functional.Singletons;
 
@@ -27,11 +24,19 @@ namespace StrangeAttractor.Util.Functional.Extensions
                 s => (IValidation<TResultError, TResultValue>)self);
         }
 
-        public static IValidation<IEnumerable<TError>, TValue> AsAggregate<TError,TValue>(this IValidation<TError, TValue> self)
+        public static IValidation<IEnumerable<TError>, TValue> AsAggregate<TError, TValue>(this IValidation<TError, TValue> self)
         {
             return self.Fold(
                 e => Validation.Failure<IEnumerable<TError>, TValue>(e.ToEnumerable()),
                 s => Validation.Success<IEnumerable<TError>, TValue>(s));
+        }
+
+        public static IValidation<TResultError, TResultValue> SelectManyApplicative<TError, TValue, TResultError, TErrorElem, TResultValue>(this IValidation<TError, TValue> self, Func<TValue, IValidation<TErrorElem, TResultValue>> selector)
+            where TValue : TResultValue
+            where TResultError : IEnumerable<TErrorElem>
+            where TError : TResultError
+        {
+            return null;
         }
     }
 }

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\DisjunctionExtensions.cs" />
+    <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Extensions\ValidationExtensions.cs" />
     <Compile Include="Implementation\Disjunctions\Left.cs" />
     <Compile Include="Implementation\Disjunctions\Right.cs" />
